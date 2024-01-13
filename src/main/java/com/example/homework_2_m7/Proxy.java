@@ -12,6 +12,6 @@ public interface Proxy {
 
 
     // GET http://api.github.com
-    @GetMapping(path = "/users/kalqa/repos" , headers= {"providedHeader"})
-    public String fetchAllRepos(@RequestHeader(required = true) @PathVariable String providedHeader);
+    @GetMapping(path = "/users/{user}/repos" , headers= {"providedHeader"})
+    public String fetchAllRepos(@PathVariable String user, @RequestHeader(required = true) @PathVariable String providedHeader);
 }
