@@ -25,6 +25,6 @@ public class Homework2M7Application {
     @EventListener(ApplicationStartedEvent.class)
     public void makeResponseToSongifyEndpoint() {
 
-        System.out.println(githubClient.fetchAllRepos());
+        System.out.println(githubClient.fetchAllRepos("Accept=application/jason"));
     }
 }
