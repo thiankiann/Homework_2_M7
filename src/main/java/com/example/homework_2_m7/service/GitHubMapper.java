@@ -1,4 +1,4 @@
-package com.example.homework_2_m7.mapper;
+package com.example.homework_2_m7.service;
 
 import com.example.homework_2_m7.dto.GitHubResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,7 +20,7 @@ public class GitHubMapper {
         this.objectMapper = objectMapper;
     }
 
-    public List<GitHubResult> mapJsonToGitHubResultList(String json) {
+  List<GitHubResult> mapJsonToGitHubResultList(String json) {
         try {
             return objectMapper.readValue(json, new TypeReference<>() {
             });
