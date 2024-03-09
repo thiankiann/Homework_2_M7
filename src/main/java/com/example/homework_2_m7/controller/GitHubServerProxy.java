@@ -29,12 +29,12 @@ public class GitHubServerProxy {
 //    int port;
 //     GET https://api.github.com/users/kalqa/repos
 
-    public String fetchAllRepos() {
+    public String makeGetRequest(String username) {
         UriComponentsBuilder builder = UriComponentsBuilder
                 .newInstance()
                 .scheme("https")
                 .host(url)
-                .path("/users/kalqa/repos");
+                .path("/users/" + username + "/repos");
         try {
             ResponseEntity<String> response = restTemplate.exchange(
                     builder.build().toUri(),
@@ -43,8 +43,9 @@ public class GitHubServerProxy {
                     String.class
             );
             return response.getBody();
-        } catch (RestClientException e) {
-            throw new RuntimeException(e);
+        } catch (IllegalArgumentException ex) {
+            log.error("User: " + username + " not found");
         }
+        return null;
     }
 }

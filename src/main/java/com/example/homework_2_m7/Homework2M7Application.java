@@ -1,6 +1,7 @@
 package com.example.homework_2_m7;
 
 import com.example.homework_2_m7.controller.GitHubServerProxy;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,6 +10,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
+@Log4j2
 public class Homework2M7Application {
 
     @Autowired
@@ -25,7 +27,8 @@ public class Homework2M7Application {
     @EventListener(ApplicationStartedEvent.class)
     public void makeResponseToSongifyEndpoint() {
 
-//        System.out.println(githubClient.makeGetRequest("kalqa"));
-        System.out.println(githubClient.fetchAllRepos());
+       // System.out.println(githubClient.makeGetRequest("kalqa"));
+        log.info(githubClient.makeGetRequest("kalqa"));
+
     }
 }

@@ -23,7 +23,7 @@ public class GitHubService {
     }
     public List<GitHubResult> fetchAllRepos(String username) {
         try {
-            String json = gitClient.fetchAllRepos();
+            String json = gitClient.makeGetRequest(username);
             List<GitHubResult> result = gitHubMapper.mapJsonToGitHubResultList(json);
             List<GitHubResult> mapResultToResultWithoutFork =gitHubMapper.mapResultToResultWithoutFork(result);
             return mapResultToResultWithoutFork;
