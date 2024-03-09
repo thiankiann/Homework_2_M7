@@ -1,4 +1,4 @@
-package com.example.homework_2_m7.config.proxy;
+package com.example.homework_2_m7.configRestTemplate;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

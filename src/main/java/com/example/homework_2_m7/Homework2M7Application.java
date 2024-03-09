@@ -9,7 +9,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
-@EnableFeignClients
 public class Homework2M7Application {
 
     @Autowired
