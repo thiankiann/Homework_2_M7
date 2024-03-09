@@ -1,5 +1,6 @@
 package com.example.homework_2_m7;
 
+import com.example.homework_2_m7.controller.GitHubServerProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,9 +13,9 @@ import org.springframework.context.event.EventListener;
 public class Homework2M7Application {
 
     @Autowired
-    Proxy githubClient;
+    GitHubServerProxy githubClient;
 
-    public Homework2M7Application(Proxy githubClient) {
+    public Homework2M7Application(GitHubServerProxy githubClient) {
         this.githubClient = githubClient;
     }
 
