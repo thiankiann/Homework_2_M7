@@ -22,7 +22,6 @@ public class Homework2M7Application {
         SpringApplication.run(Homework2M7Application.class, args);
     }
 
-
     @EventListener(ApplicationStartedEvent.class)
     public void run() {
         mainAppRunner.start();

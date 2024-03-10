@@ -1,4 +1,4 @@
-package com.example.homework_2_m7.service;
+package com.example.homework_2_m7.mapper;
 
 import com.example.homework_2_m7.dto.GitHubResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,7 +20,7 @@ public class GitHubMapper {
         this.objectMapper = objectMapper;
     }
 
-  List<GitHubResult> mapJsonToGitHubResultList(String json) {
+    public List<GitHubResult> mapJsonToGitHubResultList(String json) {
         try {
             return objectMapper.readValue(json, new TypeReference<>() {
             });
@@ -30,7 +30,7 @@ public class GitHubMapper {
         }
     }
 
-    public List<GitHubResult> mapResultToResultWithoutFork(List<GitHubResult> result) {
+    public List<GitHubResult> mapResultToResultNoForks(List<GitHubResult> result) {
         return result.stream()
                 .filter(gitHubResult -> !gitHubResult.fork())
                 .toList();

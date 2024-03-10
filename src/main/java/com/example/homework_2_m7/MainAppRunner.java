@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MainAppRunner {
 
-    GitHubService gitHubService;
+    private final GitHubService gitHubService;
 
     public MainAppRunner(GitHubService gitHubService) {
         this.gitHubService = gitHubService;

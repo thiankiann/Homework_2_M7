@@ -8,7 +8,6 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class Config {
 
-
     @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -19,6 +18,4 @@ public class Config {
     RestTemplate restTemplate() {
         return new RestTemplate();
     }
-
-
 }
