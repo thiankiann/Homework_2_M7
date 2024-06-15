@@ -1,6 +1,7 @@
 package com.example.homework_2_m7.mapper;
 
 import com.example.homework_2_m7.dto.GitHubResult;
+import com.example.homework_2_m7.dto.RepoName;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Component
@@ -29,10 +31,37 @@ public class GitHubMapper {
             return Collections.emptyList();
         }
     }
+    public List<RepoName> mapJsonRepoNamesList(String json) {
+        try {
+            return objectMapper.readValue(json, new TypeReference<>() {
+            });
+        } catch (JsonProcessingException e) {
+            log.error(e.getMessage());
+            return Collections.emptyList();
+        }
+    }
 
     public List<GitHubResult> mapResultToResultNoForks(List<GitHubResult> result) {
         return result.stream()
                 .filter(gitHubResult -> !gitHubResult.fork())
                 .toList();
     }
+
+//    public List<RepoName> mapResultToRepoName(List<GitHubResult> result) {
+//        return result.stream()
+//                //.map().filter(repoName -> result.getName())
+//                .map(repoName -> new RepoName(
+//                        result.getName()
+//                ))
+//                .collect(Collectors.toSet());
+//               // .toList();
+//    }
+//    .map(artist -> new ArtistDto(
+//            artist.getId(),
+//                        artist.getName()
+//                                ))
+//                                .collect(Collectors.toSet());
+
 }
+
+

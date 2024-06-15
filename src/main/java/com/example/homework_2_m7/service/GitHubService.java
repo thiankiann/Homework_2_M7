@@ -2,6 +2,7 @@ package com.example.homework_2_m7.service;
 
 import com.example.homework_2_m7.controller.GitHubServerProxy;
 import com.example.homework_2_m7.dto.GitHubResult;
+import com.example.homework_2_m7.dto.RepoName;
 import com.example.homework_2_m7.mapper.GitHubMapper;
 import com.example.homework_2_m7.validate.UserNotFoundException;
 import lombok.extern.log4j.Log4j2;
@@ -39,5 +40,21 @@ public class GitHubService {
         }catch (HttpClientErrorException ex){
             throw new UserNotFoundException("User: " + owner + repo  + " not found" );
         }
+
     }
+
+    public List<RepoName> fetchAllReposNames (String username) {
+        try {
+            String json = gitClient.makeGetRequest(username);
+            List<GitHubResult> result = gitHubMapper.mapJsonToGitHubResultList(json);
+            return gitHubMapper.mapJsonRepoNamesList(json);
+           // List<RepoName> repoName = gitHubMapper.mapJsonRepoNamesList(json);
+            //List<RepoName> reposNames = gitHubMapper.mapResultToRepoName(result);
+            //return gitHubMapper.mapResultToResultNoForks(result);
+        }catch (HttpClientErrorException ex){
+            throw new UserNotFoundException("User: " + username + " not found" );
+        }
+    }
+
+
 }
