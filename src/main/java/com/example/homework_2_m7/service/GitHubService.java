@@ -3,6 +3,7 @@ package com.example.homework_2_m7.service;
 import com.example.homework_2_m7.controller.GitHubServerProxy;
 import com.example.homework_2_m7.dto.GitHubResult;
 import com.example.homework_2_m7.dto.RepoName;
+import com.example.homework_2_m7.dto.RepoUrl;
 import com.example.homework_2_m7.mapper.GitHubMapper;
 import com.example.homework_2_m7.validate.UserNotFoundException;
 import lombok.extern.log4j.Log4j2;
@@ -58,23 +59,36 @@ public class GitHubService {
         }
     }
 
-    public Marker fetchAllReposNamesAndPrint (String username) {
+    public List<RepoUrl> fetchAllReposUrl (String username) {
         try {
             String json = gitClient.makeGetRequest(username);
             List<GitHubResult> result = gitHubMapper.mapJsonToGitHubResultList(json);
-            // return gitHubMapper.mapJsonRepoNamesList(json);
-            List<RepoName> repoName = gitHubMapper.mapJsonRepoNamesList(json);
-            for (int i = 0; i < repoName.size(); i++)
-            {
-                // E element = list.get(i);
-                fetchAllBranchForOneRepo("kalqa",repoName.get(i).toString());
-               // repoName.get(i);
-            }
+            return gitHubMapper.mapJsonRepoUrlList(json);
+//            List<RepoName> repoName = gitHubMapper.mapJsonRepoNamesList(json);
+
             //List<RepoName> reposNames = gitHubMapper.mapResultToRepoName(result);
 
         }catch (HttpClientErrorException ex){
             throw new UserNotFoundException("User: " + username + " not found" );
         }
-        return null;
     }
+//    public Marker fetchAllReposNamesAndPrint (String username) {
+//        try {
+//            String json = gitClient.makeGetRequest(username);
+//            List<GitHubResult> result = gitHubMapper.mapJsonToGitHubResultList(json);
+//            // return gitHubMapper.mapJsonRepoNamesList(json);
+//            List<RepoName> repoName = gitHubMapper.mapJsonRepoNamesList(json);
+//            for (int i = 0; i < repoName.size(); i++)
+//            {
+//                // E element = list.get(i);
+//                fetchAllBranchForOneRepo("kalqa",repoName.get(i).toString());
+//               // repoName.get(i);
+//            }
+//            //List<RepoName> reposNames = gitHubMapper.mapResultToRepoName(result);
+//
+//        }catch (HttpClientErrorException ex){
+//            throw new UserNotFoundException("User: " + username + " not found" );
+//        }
+//        return null;
+//    }
 }

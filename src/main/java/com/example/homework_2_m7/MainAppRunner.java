@@ -16,8 +16,9 @@ public class MainAppRunner {
 
     public void start() {
         //log.info(gitHubService.fetchAllRepos("kalqa"));
-        log.info(gitHubService.fetchAllReposNamesAndPrint("kalqa"));
+       // log.info(gitHubService.fetchAllReposNamesAndPrint("kalqa"));
         //log.info(gitHubService.fetchAllBranchForOneRepo("kalqa","LotteryMateusz"));
         //log.info(gitHubService.fetchAllReposNames("kalqa"));
+        log.info(gitHubService.fetchAllReposUrl("kalqa"));
     }
 }
