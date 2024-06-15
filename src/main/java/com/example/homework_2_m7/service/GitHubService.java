@@ -30,4 +30,14 @@ public class GitHubService {
             throw new UserNotFoundException("User: " + username + " not found" );
         }
     }
+    public String fetchAllBranchForOneRepo(String owner,String repo) {
+        try {
+            return gitClient.makeGetRequestBranch(owner,repo);
+//            String json = gitClient.makeGetRequestBranch(owner,repo);
+//            List<GitHubResult> result = gitHubMapper.mapJsonToGitHubResultList(json);
+//            return gitHubMapper.mapResultToResultNoForks(result);
+        }catch (HttpClientErrorException ex){
+            throw new UserNotFoundException("User: " + owner + repo  + " not found" );
+        }
+    }
 }
