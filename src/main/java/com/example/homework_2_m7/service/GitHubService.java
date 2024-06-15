@@ -6,6 +6,7 @@ import com.example.homework_2_m7.dto.RepoName;
 import com.example.homework_2_m7.mapper.GitHubMapper;
 import com.example.homework_2_m7.validate.UserNotFoundException;
 import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.Marker;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -47,14 +48,33 @@ public class GitHubService {
         try {
             String json = gitClient.makeGetRequest(username);
             List<GitHubResult> result = gitHubMapper.mapJsonToGitHubResultList(json);
-            return gitHubMapper.mapJsonRepoNamesList(json);
-           // List<RepoName> repoName = gitHubMapper.mapJsonRepoNamesList(json);
+           return gitHubMapper.mapJsonRepoNamesList(json);
+//            List<RepoName> repoName = gitHubMapper.mapJsonRepoNamesList(json);
+
             //List<RepoName> reposNames = gitHubMapper.mapResultToRepoName(result);
-            //return gitHubMapper.mapResultToResultNoForks(result);
+
         }catch (HttpClientErrorException ex){
             throw new UserNotFoundException("User: " + username + " not found" );
         }
     }
 
+    public Marker fetchAllReposNamesAndPrint (String username) {
+        try {
+            String json = gitClient.makeGetRequest(username);
+            List<GitHubResult> result = gitHubMapper.mapJsonToGitHubResultList(json);
+            // return gitHubMapper.mapJsonRepoNamesList(json);
+            List<RepoName> repoName = gitHubMapper.mapJsonRepoNamesList(json);
+            for (int i = 0; i < repoName.size(); i++)
+            {
+                // E element = list.get(i);
+                fetchAllBranchForOneRepo("kalqa",repoName.get(i).toString());
+               // repoName.get(i);
+            }
+            //List<RepoName> reposNames = gitHubMapper.mapResultToRepoName(result);
 
+        }catch (HttpClientErrorException ex){
+            throw new UserNotFoundException("User: " + username + " not found" );
+        }
+        return null;
+    }
 }
