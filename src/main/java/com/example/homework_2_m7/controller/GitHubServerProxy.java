@@ -48,4 +48,24 @@ public class GitHubServerProxy {
         }
         return null;
     }
+    public String makeGetRequestBranch(String owner,String repo) {
+        UriComponentsBuilder builder = UriComponentsBuilder
+                .newInstance()
+                .scheme("https")
+                .host(url)
+             //   .path("/repos/kalqa/LotteryMateusz/branches");
+                .path("/repos/" + owner + "/" + repo + "/branches");
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    builder.build().toUri(),
+                    HttpMethod.GET,
+                    null,// httpEntity,
+                    String.class
+            );
+            return response.getBody();
+        } catch (IllegalArgumentException ex) {
+           // log.error("User: " +  owner  + repo  + " not found");
+        }
+        return null;
+    }
 }
