@@ -31,39 +31,39 @@ public class GitHubMapper {
             return Collections.emptyList();
         }
     }
-    public List<BranchResult> mapJsonRepoNamesList(String json) {
-        try {
-            return objectMapper.readValue(json, new TypeReference<>() {
-            });
-        } catch (JsonProcessingException e) {
-            log.error(e.getMessage());
-            return Collections.emptyList();
-        }
-    }
-    public List<RepoUrl> mapJsonRepoUrlList(String json) {
-        try {
-            return objectMapper.readValue(json, new TypeReference<>() {
-            });
-        } catch (JsonProcessingException e) {
-            log.error(e.getMessage());
-            return Collections.emptyList();
-        }
-    }
+//    public List<BranchResult> mapJsonRepoNamesList(String json) {
+//        try {
+//            return objectMapper.readValue(json, new TypeReference<>() {
+//            });
+//        } catch (JsonProcessingException e) {
+//            log.error(e.getMessage());
+//            return Collections.emptyList();
+//        }
+//    }
+//    public List<RepoUrl> mapJsonRepoUrlList(String json) {
+//        try {
+//            return objectMapper.readValue(json, new TypeReference<>() {
+//            });
+//        } catch (JsonProcessingException e) {
+//            log.error(e.getMessage());
+//            return Collections.emptyList();
+//        }
+//    }
     public List<GitHubResult> mapResultToResultNoForks(List<GitHubResult> result) {
         return result.stream()
                 .filter(gitHubResult -> !gitHubResult.fork())
                 .toList();
     }
 
-    public List<BranchResult> mapJsonToBranchResultList(String json) {
-        try {
-            return objectMapper.readValue(json, new TypeReference<>() {
-            });
-        } catch (JsonProcessingException e) {
-            log.error(e.getMessage());
-            return Collections.emptyList();
-        }
-    }
+//    public List<BranchResult> mapJsonToBranchResultList(String json) {
+//        try {
+//            return objectMapper.readValue(json, new TypeReference<>() {
+//            });
+//        } catch (JsonProcessingException e) {
+//            log.error(e.getMessage());
+//            return Collections.emptyList();
+//        }
+//    }
 
 
 //    public List<RepoName> mapResultToRepoName(List<GitHubResult> result) {
