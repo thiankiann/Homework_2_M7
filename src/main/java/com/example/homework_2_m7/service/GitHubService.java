@@ -1,10 +1,7 @@
 package com.example.homework_2_m7.service;
 
 import com.example.homework_2_m7.controller.GitHubServerProxy;
-import com.example.homework_2_m7.dto.AllBranchesResultList;
-import com.example.homework_2_m7.dto.GitHubResult;
-import com.example.homework_2_m7.dto.BranchResult;
-import com.example.homework_2_m7.dto.ShaBranchesForAllRepos;
+import com.example.homework_2_m7.dto.*;
 import com.example.homework_2_m7.mapper.GitHubMapper;
 import com.example.homework_2_m7.validate.UserNotFoundException;
 import lombok.extern.log4j.Log4j2;
@@ -35,31 +32,48 @@ public class GitHubService {
             throw new UserNotFoundException("User: " + username + " not found" );
         }
     }
-//    public List<BranchResult> fetchShaBranchesForOneRepo(String owner, String repo) {
+    public List<BranchResult> fetchShaBranchesForOneRepo(String owner, String repo) {
+        try {
+            String json = gitClient.makeGetRequestBranch(owner,repo);
+            return gitHubMapper.mapJsonToBranchResultList(json);
+        }catch (HttpClientErrorException ex){
+            throw new UserNotFoundException("User: " + owner + repo  + " not found" );
+        }
+
+    }
+
+//    public AllBranchesResultList fetchShaBranchesForAllRepos (String username) {
 //        try {
-//            String json = gitClient.makeGetRequestBranch(owner,repo);
-//            return gitHubMapper.mapJsonToBranchResultList(json);
-//        }catch (HttpClientErrorException ex){
-//            throw new UserNotFoundException("User: " + owner + repo  + " not found" );
-//        }
+//            List<GitHubResult> results = fetchAllRepos(username);
+//            List<ShaBranchesForAllRepos> allBranchesResultRepos = new ArrayList<>();
 //
+//            for(GitHubResult result: results){
+//                List<BranchResult> branchResults = fetchShaBranchesForOneRepo(result.owner().login(), result.name());
+//                 ShaBranchesForAllRepos allBranchInfo = new ShaBranchesForAllRepos(result.owner().login(), result.name());
+//                 allBranchesResultRepos.add(allBranchInfo);
+//            }
+//            return new AllBranchesResultList(allBranchesResultRepos);
+//
+//        }catch (HttpClientErrorException ex){
+//            throw new UserNotFoundException("User: " + username + " not found" );
+//        }
 //    }
 
-    public AllBranchesResultList fetchShaBranchesForAllRepos (String username) {
-        try {
-            List<GitHubResult> results = fetchAllRepos(username);
-            List<ShaBranchesForAllRepos> allBranchesResultRepos = new ArrayList<>();
+    public AllInfoFomGitHubList fetchAllRequiredResults(String username){
+        List<GitHubResult> results = fetchAllRepos(username);
+        List<AllInfoFomGitHub> allInfo = new ArrayList<>();
 
-            for(GitHubResult result: results){
-                // List<BranchResult> branchResults = fetchShaBranchesForOneRepo(result.owner().login(), result.name());
-                 ShaBranchesForAllRepos allBranchInfo = new ShaBranchesForAllRepos(result.owner().login(), result.name());
-                 allBranchesResultRepos.add(allBranchInfo);
-            }
-            return new AllBranchesResultList(allBranchesResultRepos);
-
-        }catch (HttpClientErrorException ex){
-            throw new UserNotFoundException("User: " + username + " not found" );
+        for(GitHubResult result : results){
+            List<BranchResult> branchResults = fetchShaBranchesForOneRepo(result.owner().login(), result.name());
+            AllInfoFomGitHub allInfoFomGitHub = new AllInfoFomGitHub(result.name(),result.owner(),branchResults);
+            allInfo.add(allInfoFomGitHub);
         }
+
+        return new AllInfoFomGitHubList(allInfo);
+
+
+
+
     }
 
 //    public Marker fetchAllReposNamesAndPrint (String username) {

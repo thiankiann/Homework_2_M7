@@ -55,15 +55,15 @@ public class GitHubMapper {
                 .toList();
     }
 
-//    public List<BranchResult> mapJsonToBranchResultList(String json) {
-//        try {
-//            return objectMapper.readValue(json, new TypeReference<>() {
-//            });
-//        } catch (JsonProcessingException e) {
-//            log.error(e.getMessage());
-//            return Collections.emptyList();
-//        }
-//    }
+    public List<BranchResult> mapJsonToBranchResultList(String json) {
+        try {
+            return objectMapper.readValue(json, new TypeReference<>() {
+            });
+        } catch (JsonProcessingException e) {
+            log.error(e.getMessage());
+            return Collections.emptyList();
+        }
+    }
 
 
 //    public List<RepoName> mapResultToRepoName(List<GitHubResult> result) {
