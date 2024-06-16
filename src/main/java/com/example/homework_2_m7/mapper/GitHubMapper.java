@@ -1,7 +1,7 @@
 package com.example.homework_2_m7.mapper;
 
 import com.example.homework_2_m7.dto.GitHubResult;
-import com.example.homework_2_m7.dto.RepoName;
+import com.example.homework_2_m7.dto.BranchResult;
 import com.example.homework_2_m7.dto.RepoUrl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Component
@@ -32,7 +31,7 @@ public class GitHubMapper {
             return Collections.emptyList();
         }
     }
-    public List<RepoName> mapJsonRepoNamesList(String json) {
+    public List<BranchResult> mapJsonRepoNamesList(String json) {
         try {
             return objectMapper.readValue(json, new TypeReference<>() {
             });
@@ -56,7 +55,15 @@ public class GitHubMapper {
                 .toList();
     }
 
-
+    public List<BranchResult> mapJsonToBranchResultList(String json) {
+        try {
+            return objectMapper.readValue(json, new TypeReference<>() {
+            });
+        } catch (JsonProcessingException e) {
+            log.error(e.getMessage());
+            return Collections.emptyList();
+        }
+    }
 
 
 //    public List<RepoName> mapResultToRepoName(List<GitHubResult> result) {
