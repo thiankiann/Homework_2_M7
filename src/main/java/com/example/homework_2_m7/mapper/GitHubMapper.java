@@ -1,7 +1,7 @@
 package com.example.homework_2_m7.mapper;
 
-import com.example.homework_2_m7.dto.GitHubResult;
-import com.example.homework_2_m7.dto.BranchResult;
+import com.example.homework_2_m7.proxy.dto.GitHubResult;
+import com.example.homework_2_m7.proxy.dto.BranchResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,16 +26,17 @@ public class GitHubMapper {
             return objectMapper.readValue(json, new TypeReference<>() {
             });
         } catch (JsonProcessingException e) {
+
             log.error(e.getMessage());
             return Collections.emptyList();
         }
     }
 
-    public List<GitHubResult> mapResultToResultNoForks(List<GitHubResult> result) {
-        return result.stream()
-                .filter(gitHubResult -> !gitHubResult.fork())
-                .toList();
-    }
+//    public List<GitHubResult> mapResultToResultNoForks(List<GitHubResult> result) {
+//        return result.stream()
+//                .filter(gitHubResult -> !gitHubResult.fork())
+//                .toList();
+//    }
 
     public List<BranchResult> mapJsonToBranchResultList(String json) {
         try {

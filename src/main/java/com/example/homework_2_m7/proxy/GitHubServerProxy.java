@@ -1,5 +1,6 @@
-package com.example.homework_2_m7.controller;
+package com.example.homework_2_m7.proxy;
 
+import com.example.homework_2_m7.apivalidation.UserNotFoundException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +30,7 @@ public class GitHubServerProxy {
 //    int port;
 //     GET https://api.github.com/users/kalqa/repos
 
+
     public String makeGetRequest(String username) {
         UriComponentsBuilder builder = UriComponentsBuilder
                 .newInstance()
@@ -43,10 +45,12 @@ public class GitHubServerProxy {
                     String.class
             );
             return response.getBody();
-        } catch (IllegalArgumentException ex) {
+//        } catch (IllegalArgumentException ex) {
+        } catch (RuntimeException  ex) {
             log.error("User: " + username + " not found");
+            throw new UserNotFoundException("404"+ "!!!!!mapJsonToGitHubResultList");
         }
-        return null;
+        //return null;
     }
     public String makeGetRequestBranch(String owner,String repo) {
         UriComponentsBuilder builder = UriComponentsBuilder
@@ -63,8 +67,10 @@ public class GitHubServerProxy {
                     String.class
             );
             return response.getBody();
-        } catch (IllegalArgumentException ex) {
+       // } catch (IllegalArgumentException ex) {
+        } catch (RuntimeException ex) {
            // log.error("User: " +  owner  + repo  + " not found");
+            log.error("ERROR");
         }
         return null;
     }
