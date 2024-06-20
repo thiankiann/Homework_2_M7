@@ -1,7 +1,7 @@
-package com.example.homework_2_m7.dto;
+package com.example.homework_2_m7.proxy.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-record ShaCommit(String sha) {
+record Commit(String sha) {
 }

@@ -1,7 +1,8 @@
-package com.example.homework_2_m7.dto;
+package com.example.homework_2_m7.proxy.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record Owner(String login) {
+public record BranchResult(String name, Commit commit) {
 }
