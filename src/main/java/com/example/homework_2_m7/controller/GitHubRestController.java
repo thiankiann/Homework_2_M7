@@ -22,9 +22,9 @@ import java.util.List;
 public class GitHubRestController {
     GitHubService gitHubService;
 
-   @GetMapping( "/{user}")
+//   @GetMapping( "/{user}")
 
-  //@GetMapping(  path = "/{user}", headers = "Accept=application/json")
+  @GetMapping(  path = "/{user}", headers = "Accept=application/json")
     public ResponseEntity<AllInfoFomGitHubList> getAllRequiredResults ( @PathVariable String user) {
 //      if(user != "kalqa"){
 //          return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

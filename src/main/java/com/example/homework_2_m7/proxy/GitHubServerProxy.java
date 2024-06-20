@@ -48,9 +48,8 @@ public class GitHubServerProxy {
 //        } catch (IllegalArgumentException ex) {
         } catch (RuntimeException  ex) {
             log.error("User: " + username + " not found");
-            throw new UserNotFoundException("404"+ "!!!!!mapJsonToGitHubResultList");
         }
-        //return null;
+        return null;
     }
     public String makeGetRequestBranch(String owner,String repo) {
         UriComponentsBuilder builder = UriComponentsBuilder
@@ -70,7 +69,7 @@ public class GitHubServerProxy {
        // } catch (IllegalArgumentException ex) {
         } catch (RuntimeException ex) {
            // log.error("User: " +  owner  + repo  + " not found");
-            log.error("ERROR");
+            log.error("ERROR" + ex.getMessage());
         }
         return null;
     }
