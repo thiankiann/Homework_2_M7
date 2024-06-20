@@ -16,10 +16,10 @@ class ApiValidationErrorHandler {
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @JsonSerialize()
-    public UserNotFoundDto handleException(UserNotFoundException exception){
+    public ErrorResponseDto handleException(UserNotFoundException exception){
         log.warn("WRONG USER NAME");
         //return new UserNotFoundDto(HttpStatus.NOT_FOUND, exception.getMessage());
-        return new UserNotFoundDto(exception.StatusCode(), exception.getMessage());
+        return new ErrorResponseDto(exception.StatusCode(), exception.getMessage());
       //  return new UserNotFoundDto("404", "Wrong user name ");
     }
 }

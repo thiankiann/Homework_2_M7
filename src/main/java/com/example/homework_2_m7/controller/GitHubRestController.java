@@ -1,5 +1,6 @@
 package com.example.homework_2_m7.controller;
 
+import com.example.homework_2_m7.apivalidation.ErrorResponseDto;
 import com.example.homework_2_m7.proxy.dto.AllInfoFomGitHub;
 import com.example.homework_2_m7.proxy.dto.AllInfoFomGitHubList;
 import com.example.homework_2_m7.service.GitHubService;
@@ -26,13 +27,13 @@ public class GitHubRestController {
 
   @GetMapping(  path = "/{user}", headers = "Accept=application/json")
     public ResponseEntity<AllInfoFomGitHubList> getAllRequiredResults ( @PathVariable String user) {
-//      if(user != "kalqa"){
-//          return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//      }else {
        List<AllInfoFomGitHub> allInfoList = gitHubService.fetchAllRequiredResults(user).allInfoList();
         AllInfoFomGitHubList response = new AllInfoFomGitHubList(allInfoList) ;
         return ResponseEntity.ok(response);
-//      }
-//    }
+    }
+@GetMapping(path = "/{user}" , headers = "Accept=application/xml")
+    public ResponseEntity<ErrorResponseDto> getAllRequiredResults( ){
+    ErrorResponseDto response = new ErrorResponseDto(HttpStatus.NOT_ACCEPTABLE, "xml is not acceptable - change to json");
+    return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(response);
     }
 }
