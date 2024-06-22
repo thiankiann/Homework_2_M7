@@ -1,5 +1,6 @@
 package com.example.homework_2_m7;
 
+import com.example.homework_2_m7.proxy.dto.AllInfoFomGitHubList;
 import com.example.homework_2_m7.service.GitHubService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
@@ -17,5 +18,6 @@ public class MainAppRunner {
     public void start() {
        // log.info(gitHubService.fetchAllRequiredResults("kalqa"));
        // log.info(gitHubService.fetchShaBranchesForOneRepo("kalqa","LotteryMateusz"));
+      //  gitHubService.fetchAllRequiredResults("kalqa");
     }
 }
