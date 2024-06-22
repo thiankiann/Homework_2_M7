@@ -1,5 +1,6 @@
 package com.example.homework_2_m7.service;
 
+import com.example.homework_2_m7.model.Repo;
 import com.example.homework_2_m7.proxy.GitHubServerProxy;
 import com.example.homework_2_m7.mapper.GitHubMapper;
 import com.example.homework_2_m7.proxy.dto.AllInfoFomGitHub;
@@ -7,24 +8,29 @@ import com.example.homework_2_m7.proxy.dto.AllInfoFomGitHubList;
 import com.example.homework_2_m7.proxy.dto.BranchResult;
 import com.example.homework_2_m7.proxy.dto.GitHubResult;
 import com.example.homework_2_m7.apivalidation.UserNotFoundException;
+import com.example.homework_2_m7.repository.GitHubRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Log4j2
+@AllArgsConstructor
 @Service
 public class GitHubService {
 
     private final GitHubServerProxy gitClient;
     private final GitHubMapper gitHubMapper;
+    private final GitHubRepository gitHubRepository;
 
-    public GitHubService(GitHubServerProxy gitClient, GitHubMapper gitHubMapper) {
-        this.gitClient = gitClient;
-        this.gitHubMapper = gitHubMapper;
-    }
+//    public GitHubService(GitHubServerProxy gitClient, GitHubMapper gitHubMapper) {
+//        this.gitClient = gitClient;
+//        this.gitHubMapper = gitHubMapper;
+//    }
     public List<GitHubResult> fetchAllRepos(String username) {
         try {
             String json = gitClient.makeGetRequest(username);
@@ -55,5 +61,22 @@ public class GitHubService {
             allInfo.add(allInfoFomGitHub);
         }
         return new AllInfoFomGitHubList(allInfo);
+    }
+
+    public void addingGitHubListToDB(List<AllInfoFomGitHub> allInfoList) {
+        for (AllInfoFomGitHub info : allInfoList
+             ) {
+            Repo repo = new Repo(info.owner().toString(), info.name());
+            gitHubRepository.save(repo);
+        }
+
+
+//            allInfoList.stream()
+//                    .map(repos -> new Repo(
+//                            allInfoList.getOwner(),
+//                            allInfoList.getName()
+//                    ))
+//                    .collect(Collectors.toList());
+
     }
 }

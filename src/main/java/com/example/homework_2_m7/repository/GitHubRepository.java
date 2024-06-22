@@ -1,14 +1,14 @@
 package com.example.homework_2_m7.repository;
 
-import com.example.homework_2_m7.model.GitHubAllResults;
+import com.example.homework_2_m7.model.Repo;
 import org.springframework.data.repository.Repository;
 
 import java.util.List;
 
-public interface GitHubRepository extends Repository<GitHubAllResults,Long> {
+public interface GitHubRepository extends Repository<Repo,Long> {
 
-    GitHubAllResults save(GitHubAllResults results);
+    Repo save(Repo results);
 
-    List<GitHubAllResults> findBy();
+    List<Repo> findBy();
 
 }
