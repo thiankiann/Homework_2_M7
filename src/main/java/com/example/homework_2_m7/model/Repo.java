@@ -8,6 +8,8 @@ import lombok.Setter;
 
 @Entity
 @Builder
+@Getter
+@Setter
 //@AllArgsConstructor
 @Table(name = "repo")
 public class Repo {
@@ -15,8 +17,8 @@ public class Repo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    String owner;
     String name;
+    String owner;
 
     public Repo() {
     }
