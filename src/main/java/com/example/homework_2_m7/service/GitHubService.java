@@ -3,8 +3,8 @@ package com.example.homework_2_m7.service;
 import com.example.homework_2_m7.model.Repo;
 import com.example.homework_2_m7.proxy.GitHubServerProxy;
 import com.example.homework_2_m7.mapper.GitHubMapper;
-import com.example.homework_2_m7.proxy.dto.AllInfoFomGitHub;
-import com.example.homework_2_m7.proxy.dto.AllInfoFomGitHubList;
+import com.example.homework_2_m7.proxy.dto.AllInfoFromGitHub;
+import com.example.homework_2_m7.proxy.dto.AllInfoFromGitHubList;
 import com.example.homework_2_m7.proxy.dto.BranchResult;
 import com.example.homework_2_m7.proxy.dto.GitHubResult;
 import com.example.homework_2_m7.apivalidation.UserNotFoundException;
@@ -12,11 +12,9 @@ import com.example.homework_2_m7.repository.GitHubRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Log4j2
 @AllArgsConstructor
@@ -50,21 +48,21 @@ public class GitHubService {
 //            throw new UserNotFoundException("User: " + owner + repo  + " not found" );
 //        }
     }
-    public AllInfoFomGitHubList fetchAllRequiredResults(String username){
+    public AllInfoFromGitHubList fetchAllRequiredResults(String username){
         List<GitHubResult> results = fetchAllRepos(username);
-        List<AllInfoFomGitHub> allInfo = new ArrayList<>();
+        List<AllInfoFromGitHub> allInfo = new ArrayList<>();
 
         for(GitHubResult result : results){
             List<BranchResult> branchResults = fetchShaBranchesForOneRepo(result.owner().login(), result.name());
             log.info(branchResults);
-            AllInfoFomGitHub allInfoFomGitHub = new AllInfoFomGitHub(result.name(),result.owner(),branchResults);
-            allInfo.add(allInfoFomGitHub);
+            AllInfoFromGitHub allInfoFromGitHub = new AllInfoFromGitHub(result.name(),result.owner(),branchResults);
+            allInfo.add(allInfoFromGitHub);
         }
-        return new AllInfoFomGitHubList(allInfo);
+        return new AllInfoFromGitHubList(allInfo);
     }
 
-    public void addingGitHubListToDB(List<AllInfoFomGitHub> allInfoList) {
-        for (AllInfoFomGitHub info : allInfoList
+    public void addingGitHubListToDB(List<AllInfoFromGitHub> allInfoList) {
+        for (AllInfoFromGitHub info : allInfoList
              ) {
             Repo repo = new Repo(info.owner().toString(), info.name());
             gitHubRepository.save(repo);
