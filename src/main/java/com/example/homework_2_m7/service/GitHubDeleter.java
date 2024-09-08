@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class GitHubDeleter {
     private final GitHubRepository gitHubRepository;
+    private final GitHubRetriever gitHubRetriever;
 
     public Repo deleteRepo(Long id) {
+        gitHubRetriever.findById(id);
         log.info("Deleting song by id: " + id);
         return gitHubRepository.deleteById(id);
     }

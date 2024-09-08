@@ -1,5 +1,6 @@
 package com.example.homework_2_m7.service;
 
+import com.example.homework_2_m7.apivalidation.IdNotFoundException;
 import com.example.homework_2_m7.model.Repo;
 import com.example.homework_2_m7.repository.GitHubRepository;
 import lombok.extern.log4j.Log4j2;
@@ -19,6 +20,14 @@ public class GitHubRetriever {
     public List<Repo> findAll() {
         log.info("retrieving all repos:");
         return gitHubRepository.findAll();
+    }
+
+    public Repo findById(Long id) {
+        log.info("finding by id: " + id);
+        if (gitHubRepository.findById(id) == null){
+            throw new IdNotFoundException("id: " + id + "not found");
+        }
+        return gitHubRepository.findById(id);
     }
 
 //    public Repo findBy(Long id) {
