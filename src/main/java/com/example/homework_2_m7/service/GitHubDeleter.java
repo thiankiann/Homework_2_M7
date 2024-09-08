@@ -9,12 +9,11 @@ import org.springframework.stereotype.Service;
 @Log4j2
 @AllArgsConstructor
 @Service
-public class GitHubAdder {
+public class GitHubDeleter {
     private final GitHubRepository gitHubRepository;
 
-    public void addRepo(Repo repo) {
-        log.info("adding new Repo: " + repo);
-        gitHubRepository.save(repo);
+    public Repo deleteRepo(Long id) {
+        log.info("Deleting song by id: " + id);
+        return gitHubRepository.deleteById(id);
     }
-
 }

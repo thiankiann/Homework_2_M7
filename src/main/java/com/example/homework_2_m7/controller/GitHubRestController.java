@@ -5,6 +5,7 @@ import com.example.homework_2_m7.model.Repo;
 import com.example.homework_2_m7.proxy.dto.AllInfoFromGitHub;
 import com.example.homework_2_m7.proxy.dto.AllInfoFromGitHubList;
 import com.example.homework_2_m7.service.GitHubAdder;
+import com.example.homework_2_m7.service.GitHubDeleter;
 import com.example.homework_2_m7.service.GitHubRetriever;
 import com.example.homework_2_m7.service.GitHubService;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,9 @@ import java.util.List;
 public class GitHubRestController {
     public final GitHubService gitHubService;
     public final GitHubAdder gitHubAdder;
+    public final GitHubDeleter gitHubDeleter;
     public final GitHubRetriever gitHubRetriever;
+
    // GitHubRepository repository;
 
 //   @GetMapping( "/{user}")
@@ -50,10 +53,20 @@ public class GitHubRestController {
         return ResponseEntity.ok(reposDatabaseList);
     }
 
+//     @GetMapping("/database/{id}")
+//     public ResponseEntity<Repo> getInfoFromDBById(@PathVariable Long id){  //sprawdz czy to nie Long bruzdzi moze Integer lub int, String
+//        Repo repo = gitHubRetriever.findBy(id);
+//          return ResponseEntity.ok(repo);
+//      }
+
     @PostMapping()
     public ResponseEntity<Repo> postGitHubIntoDB(@RequestBody Repo repo){ //(String owner , String name)){
 
       gitHubAdder.addRepo(repo);
       return ResponseEntity.ok(repo);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Repo> deleteGitHubById(@PathVariable Long id){
+      return ResponseEntity.ok(gitHubDeleter.deleteRepo(id));
     }
 }

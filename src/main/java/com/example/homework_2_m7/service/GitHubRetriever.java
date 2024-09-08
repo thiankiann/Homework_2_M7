@@ -20,4 +20,9 @@ public class GitHubRetriever {
         log.info("retrieving all repos:");
         return gitHubRepository.findAll();
     }
+
+//    public Repo findBy(Long id) {
+//        log.info("retrieving repo with id:" + id);
+//        return gitHubRepository.findBy(id);
+//    }
 }

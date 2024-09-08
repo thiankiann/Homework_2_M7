@@ -10,7 +10,8 @@ public interface GitHubRepository extends Repository<Repo,Long> {
 
     Repo save(Repo results);
 
-    List<Repo> findBy();
+//    Repo findBy(Long id);
     List<Repo> findAll();
 
+    Repo deleteById(Long id);
 }
