@@ -17,5 +17,7 @@ public interface GitHubRepository extends Repository<Repo,Long> {
 
 
     Repo findById(Long id);
+
+    void updateById(Long id, Repo newRepo);
 }
 
