@@ -69,8 +69,10 @@ public class GitHubRestController {
         return ResponseEntity.ok(gitHubDeleter.deleteRepo(id));
     }
 
-    public ResponseEntity<Repo> updateGitHubById(@PathVariable Long id, @RequestBody Repo newRepo) {
-        gitHubUpdater.updateByid(id, newRepo);
+    @PutMapping("/{id}")
+    public ResponseEntity<Repo> updateGitHubById(@PathVariable Long id, @RequestBody Repo requestRepo) {
+        Repo newRepo = new Repo(requestRepo.getName(), requestRepo.getOwner());
+        gitHubUpdater.updateById(id, newRepo);
         return ResponseEntity.ok(newRepo);
     }
 }

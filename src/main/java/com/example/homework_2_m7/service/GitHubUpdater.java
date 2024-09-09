@@ -13,10 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class GitHubUpdater {
     private final GitHubRepository gitHubRepository;
+    private final GitHubRetriever gitHubRetriever;
 
-    public void updateByid(Long id, Repo newRepo) {
+    public void updateById(Long id, Repo newRepo) {
+        gitHubRetriever.findById(id);
+        log.info("updating repository with ID: " + id);
         gitHubRepository.updateById(id,newRepo);
     }
-
-
 }
