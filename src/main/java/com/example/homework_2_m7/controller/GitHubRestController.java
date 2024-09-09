@@ -22,6 +22,7 @@ public class GitHubRestController {
     public final GitHubDeleter gitHubDeleter;
     public final GitHubRetriever gitHubRetriever;
     public final GitHubUpdater gitHubUpdater;
+    public final GitHubUpdatePartially gitHubUpdatePartially;
 
     // GitHubRepository repository;
 
@@ -73,6 +74,12 @@ public class GitHubRestController {
     public ResponseEntity<Repo> updateGitHubById(@PathVariable Long id, @RequestBody Repo requestRepo) {
         Repo newRepo = new Repo(requestRepo.getName(), requestRepo.getOwner());
         gitHubUpdater.updateById(id, newRepo);
+        return ResponseEntity.ok(newRepo);
+    }
+    @PatchMapping("/{id}")
+    public ResponseEntity<Repo> partiallyUpdateGitHubById(@PathVariable Long id, @RequestBody Repo requestRepo) {
+        Repo newRepo = new Repo(requestRepo.getName(), requestRepo.getOwner());
+        gitHubUpdatePartially.updatePartiallyById(id, newRepo);
         return ResponseEntity.ok(newRepo);
     }
 }

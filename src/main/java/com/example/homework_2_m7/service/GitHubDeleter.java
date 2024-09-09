@@ -14,7 +14,7 @@ public class GitHubDeleter {
     private final GitHubRetriever gitHubRetriever;
 
     public Repo deleteRepo(Long id) {
-        gitHubRetriever.findById(id);
+        gitHubRetriever.findRepoById(id);
         log.info("Deleting song by id: " + id);
         return gitHubRepository.deleteById(id);
     }

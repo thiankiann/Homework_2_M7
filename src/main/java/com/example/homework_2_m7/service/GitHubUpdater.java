@@ -16,7 +16,7 @@ public class GitHubUpdater {
     private final GitHubRetriever gitHubRetriever;
 
     public void updateById(Long id, Repo newRepo) {
-        gitHubRetriever.findById(id);
+        gitHubRetriever.findRepoById(id);
         log.info("updating repository with ID: " + id);
         gitHubRepository.updateById(id,newRepo);
     }
